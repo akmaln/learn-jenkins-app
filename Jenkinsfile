@@ -92,6 +92,12 @@ pipeline {
         }
 
         stage('approval') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
                 steps {
                     timeout(time: 1, unit: 'MINUTES') {
                         input message: 'do you wish to deploy to production?', ok: 'yes i am sure i want to deploy'
